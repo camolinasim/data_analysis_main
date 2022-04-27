@@ -155,10 +155,12 @@ class DataAnalysisWindow(QWidget):
         pcap1 = path_of_selected_pcap
         pcap2 = askopenfilename()
         pcap2 = os.path.normpath(pcap2)
-        pcap1_name = pcap_name
-        pcap2_name = os.path.basename(pcap2)
+        pcap1_name = pcap_name.replace(
+            ".pcap", "")
+        pcap2_name = (os.path.basename(pcap2)).replace(
+            ".pcap", "")
 
-        output_file_path = pcap_folder_location + "\\merge_" + \
+        output_file_path = pcap_folder_location + "\\" + \
             pcap1_name + "_" + pcap2_name + ".pcap"
         print(output_file_path)
 
@@ -186,7 +188,7 @@ class DataAnalysisWindow(QWidget):
         clear_analyzer_window(self.table_view.layout(), self)
 
         ########### SETUP - SAVING PCAP PATHS ###########
-        set_status(self, 'waiting for the user\'s pcap selection')
+        set_status(self, 'Waiting for User\'s  Selection')
         Tk().withdraw()
         path_of_selected_pcap = askopenfilename()
         # correcting path from C:/x/x/x/x.pcap -> C:\\x\\x\\x\\x\ x.pcap

@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QLabel::hover
 {
-	background-color: lightblue;
+	background-color: rgb(184,211,255);
 }
 
 
@@ -656,6 +656,7 @@ QAbstractSpinBox {
       <property name="styleSheet">
        <string notr="true">QLabel{
 font-size: 19px;
+background-color: transparent;
 }</string>
       </property>
       <property name="text">
@@ -680,6 +681,11 @@ font-size: 19px;
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="status">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+background-color: transparent;
+}</string>
+      </property>
       <property name="text">
        <string>Status - Ready to Read</string>
       </property>
