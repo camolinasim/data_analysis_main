@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QLabel::hover
 {
-	background-color: rgb(184,211,255);
+	background-color: rgb(207,221,255)
 }
 
 
@@ -539,7 +539,7 @@ QAbstractSpinBox {
     min-width: 50px;
 }</string>
   </property>
-  <widget class="QLineEdit" name="filter_bar">
+  <widget class="QLineEdit" name="action_bar">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -552,7 +552,7 @@ QAbstractSpinBox {
     <string/>
    </property>
    <property name="placeholderText">
-    <string>filter bar</string>
+    <string>action bar (filter/remove packets)</string>
    </property>
    <property name="clearButtonEnabled">
     <bool>true</bool>
