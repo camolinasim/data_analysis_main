@@ -18,6 +18,7 @@ import pandas as pd
 import re
 from os.path import exists
 import random
+from re import search
 
 # importing askopenfile function
 # from class filedialog
@@ -122,34 +123,60 @@ class DataAnalysisWindow(QWidget):
         loadUi("data_analysis.ui", self)
         self.btn_open_pcap.clicked.connect(self.read_pcap)
         self.btn_merge.clicked.connect(self.merge_pcaps)
-        self.filter_bar.setEnabled(False)
+        self.action_bar.setEnabled(False)
         self.btn_merge.setEnabled(False)
 
-    def call_tshark_filter(self):
-        filter_argument = self.filter_bar.text()
-        show_me_only_what_matters = ' -T fields -E header=y -E separator=, -E quote=d -E occurrence=f -e frame.number -e _ws.col.Time -e ip.src -e ip.dst -e ip.proto -e frame.len -e _ws.col.Info'
-        tshark_command = 'tshark -r ' + path_of_selected_pcap + \
-            ' -Y ' + '\"' + filter_argument + '\"'
-        stream = os.popen(tshark_command)
-        output = stream.read()
+    def action_call(self):
+        action_argument = self.action_bar.text()
 
-        print("Tshark says: " + output)
-        output = output.replace("â†’", "->")
-        rows = output.split("\n")
+        ##REMOVE LOGIC#######
+        if search("rm", action_argument):
+            print("remove logic")
+            index_to_start_reading_from = search(r"\d", action_argument)
+            print("index to start reading from: " +
+                  str(index_to_start_reading_from.start()))
+            print(action_argument[index_to_start_reading_from.start():])
+            packets_to_remove = action_argument[index_to_start_reading_from.start(
+            ):]
 
-        # clear the window before showing thsark's answer.
-        clear_analyzer_window(self.table_view.layout(), self)
+            output_file_path = pcap_folder_location + "\\" + \
+                pcap_name + "_edited.pcap "
 
-        ########## POPULATING GUI WITH TSHARK'S ANSWER TO FILTER ###########
-        for row in rows:
-            packet_row = QLabel(row)
-            try:
-                packet_name = re.search(r'\d+', packet_row.text()).group()
-                packet_row.setObjectName(packet_name)
-                packet_row.setAlignment(QtCore.Qt.AlignTop)
-                self.table_view.layout().addWidget(packet_row)
-            except AttributeError:
-                packet_name = "0"
+            # print(output_file_path)
+
+            editcap_command = 'editcap ' + path_of_selected_pcap + \
+                " " + output_file_path + packets_to_remove
+
+            print("EDIT COMMAND:" + editcap_command)
+            stream = os.popen(editcap_command)
+            output = stream.read()
+            print(output)
+        ###FILTER LOGIC###
+        else:
+            filter_argument = self.action_bar.text()
+            show_me_only_what_matters = ' -T fields -E header=y -E separator=, -E quote=d -E occurrence=f -e frame.number -e _ws.col.Time -e ip.src -e ip.dst -e ip.proto -e frame.len -e _ws.col.Info'
+            tshark_command = 'tshark -r ' + path_of_selected_pcap + \
+                ' -Y ' + '\"' + filter_argument + '\"'
+            stream = os.popen(tshark_command)
+            output = stream.read()
+
+            print("Tshark says: " + output)
+            output = output.replace("â†’", "->")
+            rows = output.split("\n")
+
+            # clear the window before showing thsark's answer.
+            clear_analyzer_window(self.table_view.layout(), self)
+
+            ########## POPULATING GUI WITH TSHARK'S ANSWER TO FILTER ###########
+            for row in rows:
+                packet_row = QLabel(row)
+                try:
+                    packet_name = re.search(r'\d+', packet_row.text()).group()
+                    packet_row.setObjectName(packet_name)
+                    packet_row.setAlignment(QtCore.Qt.AlignTop)
+                    self.table_view.layout().addWidget(packet_row)
+                except AttributeError:
+                    packet_name = "0"
 
     def merge_pcaps(self):
         pcap1 = path_of_selected_pcap
@@ -253,8 +280,8 @@ class DataAnalysisWindow(QWidget):
 
         set_status(self, "enabling filter bar")
         # once a file is read, enable the filter bar
-        self.filter_bar.setEnabled(True)
-        self.filter_bar.editingFinished.connect(self.call_tshark_filter)
+        self.action_bar.setEnabled(True)
+        self.action_bar.editingFinished.connect(self.action_call)
         set_status(self, '')
         self.btn_merge.setEnabled(True)
 
