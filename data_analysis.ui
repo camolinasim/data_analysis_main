@@ -562,7 +562,7 @@ QAbstractSpinBox {
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>170</y>
+     <y>190</y>
      <width>1381</width>
      <height>661</height>
     </rect>
@@ -644,9 +644,9 @@ QAbstractSpinBox {
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>320</x>
      <y>20</y>
-     <width>1381</width>
+     <width>1141</width>
      <height>80</height>
     </rect>
    </property>

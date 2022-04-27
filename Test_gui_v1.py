@@ -128,6 +128,8 @@ class DataAnalysisWindow(QWidget):
 
     def action_call(self):
         action_argument = self.action_bar.text()
+        name_of_pcap_to_delete_from = pcap_name.replace(
+            ".pcap", "")
 
         ##REMOVE LOGIC#######
         if search("rm", action_argument):
@@ -140,7 +142,7 @@ class DataAnalysisWindow(QWidget):
             ):]
 
             output_file_path = pcap_folder_location + "\\" + \
-                pcap_name + "_edited.pcap "
+                name_of_pcap_to_delete_from + "_edited.pcap "
 
             # print(output_file_path)
 
@@ -151,6 +153,14 @@ class DataAnalysisWindow(QWidget):
             stream = os.popen(editcap_command)
             output = stream.read()
             print(output)
+            output_file_name = os.path.basename(output_file_path)
+
+            if(output == ''):
+                set_status(
+                    self, f"Packets removed. To view changes, open {output_file_name} through the open pcap button", 'success')
+            else:
+                set_status(
+                    "there was an error deleting your files - check the terminal", "warning")
         ###FILTER LOGIC###
         else:
             filter_argument = self.action_bar.text()
@@ -202,7 +212,7 @@ class DataAnalysisWindow(QWidget):
             set_status(
                 self, f"{output_file_name} has been created -- to view it, open it through the open pcap button", 'success')
         else:
-            set_status("there was an error merging your files")
+            set_status("there was an error merging your files", "warning")
 
     def read_pcap(self):
         global path_of_selected_pcap
