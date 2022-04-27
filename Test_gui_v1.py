@@ -103,9 +103,17 @@ def clear_analyzer_window(layout, self):
     self.table_view.layout().addWidget(top_label)
 
 
-def set_status(self, status):
+def set_status(self, status, warning_or_success='none'):
     self.status.setText(status)
     self.status.adjustSize()
+    if(warning_or_success == 'warning'):
+        self.status.setStyleSheet(
+            "QLabel { color : red; background-color: transparent; }")
+    elif(warning_or_success == 'success'):
+        self.status.setStyleSheet(
+            "QLabel { color : lightgreen; background-color: transparent; }")
+    else:
+        return
 
 
 class DataAnalysisWindow(QWidget):
@@ -147,16 +155,23 @@ class DataAnalysisWindow(QWidget):
         pcap1 = path_of_selected_pcap
         pcap2 = askopenfilename()
         pcap2 = os.path.normpath(pcap2)
-        output_file = pcap_folder_location + "\\merged.pcap"
+        pcap1_name = pcap_name
+        pcap2_name = os.path.basename(pcap2)
 
-        mergecap_arguments = 'mergecap ' + pcap1 + ' ' + pcap2 + ' -w ' + output_file
+        output_file_path = pcap_folder_location + "\\merge_" + \
+            pcap1_name + "_" + pcap2_name + ".pcap"
+        print(output_file_path)
+
+        mergecap_arguments = 'mergecap ' + pcap1 + \
+            ' ' + pcap2 + ' -w ' + output_file_path
         print("mergecap arguments: " + mergecap_arguments)
         stream = os.popen(mergecap_arguments)
         output = stream.read()
-        print('MERGECAP SAYS: ' + output)
+
+        output_file_name = os.path.basename(output_file_path)
         if(output == ''):
             set_status(
-                self, "merged.pcap has been created -- to view it, open it through the open pcap button")
+                self, f"{output_file_name} has been created -- to view it, open it through the open pcap button", 'success')
         else:
             set_status("there was an error merging your files")
 
@@ -171,7 +186,7 @@ class DataAnalysisWindow(QWidget):
         clear_analyzer_window(self.table_view.layout(), self)
 
         ########### SETUP - SAVING PCAP PATHS ###########
-        set_status(self, 'saving pcap paths')
+        set_status(self, 'waiting for the user\'s pcap selection')
         Tk().withdraw()
         path_of_selected_pcap = askopenfilename()
         # correcting path from C:/x/x/x/x.pcap -> C:\\x\\x\\x\\x\ x.pcap
@@ -238,7 +253,7 @@ class DataAnalysisWindow(QWidget):
         # once a file is read, enable the filter bar
         self.filter_bar.setEnabled(True)
         self.filter_bar.editingFinished.connect(self.call_tshark_filter)
-        set_status(self, 'everything ready')
+        set_status(self, '')
         self.btn_merge.setEnabled(True)
 
 
