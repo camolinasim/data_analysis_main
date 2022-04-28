@@ -106,7 +106,7 @@ def clear_analyzer_window(self):
     if (self.pcap_counter == 0):
         self.listWidget.clear()
     elif (self.pcap_counter == 1):
-        self.listWidget2.clear()
+        self.listWidget1.clear()
     # while layout.count():
     #    child = layout.takeAt(0)
     #    if child.widget():
@@ -132,6 +132,9 @@ def set_status(self, status, warning_or_success='none'):
 
 def disable_tabs(self):
     self.tab_father.setTabEnabled(1, False)  # enable/disable the tab
+    self.tab_father.setTabEnabled(2, False)  # enable/disable the tab
+    self.tab_father.setTabEnabled(3, False)  # enable/disable the tab
+    self.tab_father.setTabEnabled(4, False)  # enable/disable the tab
     self.tab_father.setStyleSheet("QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
 
 
@@ -343,11 +346,35 @@ class DataAnalysisWindow(QWidget):
                 # print(row2)
                 if(self.pcap_counter == 0):
                    self.listWidget.addItem(rows[row])
+                   self.tab_father.setTabText(
+                       0, str(os.path.basename(path_of_selected_pcap)))
                 elif (self.pcap_counter == 1):
+                    self.listWidget1.addItem(rows[row])
+                    self.tab_father.setTabText(
+                        1, str(os.path.basename(path_of_selected_pcap)))
+                elif (self.pcap_counter == 2):
                     self.listWidget2.addItem(rows[row])
+                    self.tab_father.setTabText(
+                        2, str(os.path.basename(path_of_selected_pcap)))
+                elif (self.pcap_counter == 3):
+                    self.listWidget3.addItem(rows[row])
+                    self.tab_father.setTabText(
+                        3, str(os.path.basename(path_of_selected_pcap)))
+                elif (self.pcap_counter == 4):
+                    self.listWidget4.addItem(rows[row])
+                    self.tab_father.setTabText(
+                        4, str(os.path.basename(path_of_selected_pcap)))
+                else:
+                    print('looping back to first tab')
+                    self.pcap_counter = 0
+                    self.listWidget.addItem(rows[row])
+                    self.tab_father.setTabText(
+                        0, str(os.path.basename(path_of_selected_pcap)))
+
 
         self.pcap_counter = self.pcap_counter + 1
         print(self.pcap_counter)
+
 
 
 

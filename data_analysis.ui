@@ -544,7 +544,7 @@ QAbstractSpinBox {
     <rect>
      <x>200</x>
      <y>110</y>
-     <width>1381</width>
+     <width>1251</width>
      <height>31</height>
     </rect>
    </property>
@@ -571,7 +571,7 @@ QAbstractSpinBox {
     <enum>QTabWidget::Triangular</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
    <property name="documentMode">
     <bool>false</bool>
@@ -601,18 +601,150 @@ QAbstractSpinBox {
           <x>0</x>
           <y>0</y>
           <width>1359</width>
-          <height>616</height>
+          <height>612</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_14">
          <item>
-          <layout class="QVBoxLayout" name="table_view"/>
+          <widget class="QListWidget" name="listWidget"/>
          </item>
         </layout>
        </widget>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QWidget" name="tab2">
+    <attribute name="title">
+     <string>Page</string>
+    </attribute>
+    <widget class="QScrollArea" name="scrollArea_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>1361</width>
+       <height>614</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_7">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1359</width>
+        <height>612</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_19">
+       <item>
+        <widget class="QListWidget" name="listWidget1"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab3">
+    <attribute name="title">
+     <string>Page</string>
+    </attribute>
+    <widget class="QScrollArea" name="scrollArea_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>1361</width>
+       <height>614</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_8">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1359</width>
+        <height>612</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_20">
+       <item>
+        <widget class="QListWidget" name="listWidget2"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Page</string>
+    </attribute>
+    <widget class="QScrollArea" name="scrollArea_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>1361</width>
+       <height>614</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_9">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1359</width>
+        <height>612</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_21">
+       <item>
+        <widget class="QListWidget" name="listWidget3"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Page</string>
+    </attribute>
+    <widget class="QScrollArea" name="scrollArea_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>1361</width>
+       <height>614</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_10">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1359</width>
+        <height>612</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_22">
+       <item>
+        <widget class="QListWidget" name="listWidget4"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QPushButton" name="btn_open_pcap">
@@ -644,9 +776,9 @@ QAbstractSpinBox {
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>200</x>
      <y>20</y>
-     <width>1141</width>
+     <width>1381</width>
      <height>80</height>
     </rect>
    </property>
@@ -672,7 +804,7 @@ background-color: transparent;
   <widget class="QWidget" name="verticalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>439</x>
+     <x>440</x>
      <y>150</y>
      <width>901</width>
      <height>31</height>
@@ -695,6 +827,64 @@ background-color: transparent;
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="lbl_movie">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>350</y>
+     <width>210</width>
+     <height>250</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_new_pcap">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>230</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Pcaps</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>520</y>
+     <width>81</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>** To make a new file with selected PCAPS. Please select any PCAPS from the list</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_save">
+   <property name="geometry">
+    <rect>
+     <x>1460</x>
+     <y>110</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save Data Item</string>
+   </property>
   </widget>
  </widget>
  <resources/>
