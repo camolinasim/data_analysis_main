@@ -102,11 +102,24 @@ class MainWindow(QMainWindow):
 
 # to clear analyzer window
 def clear_analyzer_window(self):
+    top_label = "         #      TimeStamp    source     destin    protocol     frame.len                                 Info\n"
 
     if (self.pcap_counter == 0):
         self.listWidget.clear()
+        self.listWidget.addItem(top_label)
     elif (self.pcap_counter == 1):
         self.listWidget1.clear()
+        self.listWidget1.addItem(top_label)
+    elif (self.pcap_counter == 2):
+        self.listWidget2.clear()
+        self.listWidget2.addItem(top_label)
+    elif (self.pcap_counter == 3):
+        self.listWidget3.clear()
+        self.listWidget3.addItem(top_label)
+    elif (self.pcap_counter == 4):
+        self.listWidget4.clear()
+        self.listWidget4.addItem(top_label)
+
     # while layout.count():
     #    child = layout.takeAt(0)
     #    if child.widget():
@@ -114,7 +127,7 @@ def clear_analyzer_window(self):
 
     top_label = "         #      TimeStamp    source     destin    protocol     frame.len                  Info\n"
     # top_label.setAlignment(QtCore.Qt.AlignTop)
-    self.listWidget.addItem(top_label)
+    #self.listWidget.addItem(top_label)
     # self.table_view.layout().addWidget(top_label)
 
 
