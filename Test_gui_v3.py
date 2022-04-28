@@ -101,8 +101,12 @@ class MainWindow(QMainWindow):
 
 
 # to clear analyzer window
-def clear_analyzer_window(layout, self):
-    self.listWidget.clear()
+def clear_analyzer_window(self):
+
+    if (self.pcap_counter == 0):
+        self.listWidget.clear()
+    elif (self.pcap_counter == 1):
+        self.listWidget2.clear()
     # while layout.count():
     #    child = layout.takeAt(0)
     #    if child.widget():
@@ -275,7 +279,7 @@ class DataAnalysisWindow(QWidget):
 
         # clear the window before opening a new pcap
         set_status(self, 'clearing window')
-        clear_analyzer_window("self.table_view.layout()", self)
+        clear_analyzer_window(self)
 
         ########### SETUP - SAVING PCAP PATHS ###########
         set_status(self, 'Waiting for User\'s  Selection')
@@ -331,14 +335,16 @@ class DataAnalysisWindow(QWidget):
         set_status(self, 'populating GUI')
 
         ########## POPULATING GUI WITH EACH ROW OF DATAFRAME  ###########
-
         for row in range(len(rows)):
             # print(row)
             if row != 0:
                 print(rows[row])
                 row2 = rows[row].translate(str.maketrans("", "", string.whitespace))
                 # print(row2)
-                self.listWidget.addItem(rows[row])
+                if(self.pcap_counter == 0):
+                   self.listWidget.addItem(rows[row])
+                elif (self.pcap_counter == 1):
+                    self.listWidget2.addItem(rows[row])
 
         self.pcap_counter = self.pcap_counter + 1
         print(self.pcap_counter)
