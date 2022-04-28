@@ -271,6 +271,8 @@ class DataAnalysisWindow(QWidget):
         global pcap_folder_location
         global csv_folder
 
+        self.tab_father.setTabEnabled(self.pcap_counter, True)
+
         # clear the window before opening a new pcap
         set_status(self, 'clearing window')
         clear_analyzer_window("self.table_view.layout()", self)
@@ -341,33 +343,7 @@ class DataAnalysisWindow(QWidget):
         self.pcap_counter = self.pcap_counter + 1
         print(self.pcap_counter)
 
-                # shortString = ""
-            # print(row)
-            # if row != 0:
-            #    print(rows[row])
-            #    row2 = rows[row].split
-            #    row2 = rows[row].translate(str.maketrans("", "", string.whitespace))
-            #    whitespace = r"\s+"
-            #    # Replace all mathces with an empty string
-            #    nospaces = re.sub(whitespace, ",", rows[row])
-            #    print(nospaces)
-            #    nospaces = nospaces.split(",")
-            #    for i in range(len(nospaces)):
-            #        if i != 0:
-            #            shortString = shortString + " " + nospaces[i]
-            #    shortString = shortString.replace(" ", "          ")
-            #    print(shortString)
-            #    self.listWidget.addItem(shortString)
-            # packet_row = QLabel(row)
-            # try:
-            #    packet_name = re.search(r'\d+', packet_row.text()).group()
-            #    packet_row.setObjectName(packet_name)
-            #    packet_row.setAlignment(QtCore.Qt.AlignTop)
-            #    print(packet_row.text())
-            #    self.table_view.layout().addWidget(packet_row)
-            # except AttributeError:
-            # I'm not adding the first line of the text because it doesn't contain any packet data
-            #    packet_name = "0"
+
 
         set_status(self, "enabling filter bar")
         # once a file is read, enable the filter bar
