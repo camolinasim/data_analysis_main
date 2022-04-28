@@ -291,8 +291,7 @@ class DataAnalysisWindow(QWidget):
         # correcting path from C:/x/x/x/x.pcap -> C:\\x\\x\\x\\x\ x.pcap
         path_of_selected_pcap = os.path.normpath(path_of_selected_pcap)
         pcap_name = os.path.basename(path_of_selected_pcap)
-        self.tab_father.setTabText(
-            0, str(os.path.basename(path_of_selected_pcap)))
+
         path_of_selected_pcap_no_extension = path_of_selected_pcap.replace(
             ".pcap", "")
         pcap_folder_location = path_of_selected_pcap.rsplit('http.pcap', 1)
@@ -316,12 +315,10 @@ class DataAnalysisWindow(QWidget):
 
         ########### CREATING FOLDER FOR CSVs ###########
 
-        set_status(self, 'creating csv folder')
 
         if not path.exists(csv_folder):
             os.mkdir(csv_folder)
 
-        set_status(self, 'creating dataframe')
         ########## CREATING DATAFRAME FROM CSV ###########
         if (not csv_exists):
             csv_path = path_of_selected_pcap_no_extension + '.csv'
@@ -335,7 +332,6 @@ class DataAnalysisWindow(QWidget):
         pcap_content = df.to_string(index=False)
         rows = pcap_content.split("\n")
 
-        set_status(self, 'populating GUI')
 
         ########## POPULATING GUI WITH EACH ROW OF DATAFRAME  ###########
         for row in range(len(rows)):
@@ -365,11 +361,7 @@ class DataAnalysisWindow(QWidget):
                     self.tab_father.setTabText(
                         4, str(os.path.basename(path_of_selected_pcap)))
                 else:
-                    print('looping back to first tab')
-                    self.pcap_counter = 0
-                    self.listWidget.addItem(rows[row])
-                    self.tab_father.setTabText(
-                        0, str(os.path.basename(path_of_selected_pcap)))
+                    set_status(self,'cannot have more than 5 tabs open','warning')
 
 
         self.pcap_counter = self.pcap_counter + 1
@@ -378,11 +370,9 @@ class DataAnalysisWindow(QWidget):
 
 
 
-        set_status(self, "enabling filter bar")
         # once a file is read, enable the filter bar
         self.action_bar.setEnabled(True)
         self.action_bar.editingFinished.connect(self.action_call)
-        set_status(self, '')
         self.btn_merge.setEnabled(True)
         self.loadingStop()
 
