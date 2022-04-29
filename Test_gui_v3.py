@@ -13,7 +13,9 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel, QMovie, QIcon, QPixmap
 from PyQt5.QtCore import Qt
-import sys, os, glob
+import sys
+import os
+import glob
 from tkinter import *
 from tkinter.ttk import *
 import controller
@@ -36,7 +38,9 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-import sys, os, glob
+import sys
+import os
+import glob
 import controller
 import shutil
 import os.path
@@ -44,6 +48,7 @@ from os import path
 import pandas as pd
 import re
 from re import search
+import csv
 
 from random import randint
 
@@ -76,7 +81,7 @@ class MainWindow(QMainWindow):
         settings = self.openFile()
         window.destroy()
         self.show_selected_project(settings)
-        ##self.close()
+        # self.close()
         self.w = SelectedProjectWindow(settings)
         # self.w.generateScenarioList(settings=settings)
         self.w.lbl_project_x.setText("Project: " + settings[0][1])
@@ -102,23 +107,24 @@ class MainWindow(QMainWindow):
 
 # to clear analyzer window
 def clear_analyzer_window(self):
+    print("come back to clear analyzer window once tables work")
     top_label = "         #      TimeStamp    source     destin    protocol     frame.len                                 Info\n"
 
-    if (self.pcap_counter == 0):
-        self.listWidget.clear()
-        self.listWidget.addItem(top_label)
-    elif (self.pcap_counter == 1):
-        self.listWidget1.clear()
-        self.listWidget1.addItem(top_label)
-    elif (self.pcap_counter == 2):
-        self.listWidget2.clear()
-        self.listWidget2.addItem(top_label)
-    elif (self.pcap_counter == 3):
-        self.listWidget3.clear()
-        self.listWidget3.addItem(top_label)
-    elif (self.pcap_counter == 4):
-        self.listWidget4.clear()
-        self.listWidget4.addItem(top_label)
+    # if (self.pcap_counter == 0):
+    #     self.listWidget.clear()
+    #     self.listWidget.addItem(top_label)
+    # elif (self.pcap_counter == 1):
+    #     self.listWidget1.clear()
+    #     self.listWidget1.addItem(top_label)
+    # elif (self.pcap_counter == 2):
+    #     self.listWidget2.clear()
+    #     self.listWidget2.addItem(top_label)
+    # elif (self.pcap_counter == 3):
+    #     self.listWidget3.clear()
+    #     self.listWidget3.addItem(top_label)
+    # elif (self.pcap_counter == 4):
+    #     self.listWidget4.clear()
+    #     self.listWidget4.addItem(top_label)
 
     # while layout.count():
     #    child = layout.takeAt(0)
@@ -127,7 +133,7 @@ def clear_analyzer_window(self):
 
     top_label = "         #      TimeStamp    source     destin    protocol     frame.len                  Info\n"
     # top_label.setAlignment(QtCore.Qt.AlignTop)
-    #self.listWidget.addItem(top_label)
+    # self.listWidget.addItem(top_label)
     # self.table_view.layout().addWidget(top_label)
 
 
@@ -143,12 +149,14 @@ def set_status(self, status, warning_or_success='none'):
     else:
         return
 
+
 def disable_tabs(self):
     self.tab_father.setTabEnabled(1, False)  # enable/disable the tab
     self.tab_father.setTabEnabled(2, False)  # enable/disable the tab
     self.tab_father.setTabEnabled(3, False)  # enable/disable the tab
     self.tab_father.setTabEnabled(4, False)  # enable/disable the tab
-    self.tab_father.setStyleSheet("QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
+    self.tab_father.setStyleSheet(
+        "QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
 
 
 class DataAnalysisWindow(QWidget):
@@ -164,10 +172,11 @@ class DataAnalysisWindow(QWidget):
         self.lbl_movie.setMovie(self.movie)
         # self.movie.start()
         self.lbl_movie.hide()
-        self.listWidget.setSelectionMode(2)
+        self.table_view.setSelectionMode(2)
         self.pcap_counter = 0
         # set the style sheet
-        self.setStyleSheet("QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
+        self.setStyleSheet(
+            "QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
         disable_tabs(self)
 
     def loadingStart(self):
@@ -205,7 +214,7 @@ class DataAnalysisWindow(QWidget):
             ):]
 
             output_file_path = pcap_folder_location + "\\" + \
-                               pcap_name + "_edited.pcap "
+                pcap_name + "_edited.pcap "
 
             # print(output_file_path)
 
@@ -236,7 +245,8 @@ class DataAnalysisWindow(QWidget):
             for row in range(len(rows)):
                 if row != 0:
                     print(rows[row])
-                    row2 = rows[row].translate(str.maketrans("", "", string.whitespace))
+                    row2 = rows[row].translate(
+                        str.maketrans("", "", string.whitespace))
                     # print(row2)
                     self.listWidget.addItem(rows[row])
                 # self.listWidget.addItem(row)
@@ -259,7 +269,7 @@ class DataAnalysisWindow(QWidget):
             ".pcap", "")
 
         output_file_path = pcap_folder_location + "\\" + \
-                           pcap1_name + "_" + pcap2_name + ".pcap"
+            pcap1_name + "_" + pcap2_name + ".pcap"
         print(output_file_path)
 
         mergecap_arguments = 'mergecap ' + pcap1 + \
@@ -312,8 +322,8 @@ class DataAnalysisWindow(QWidget):
         csv_folder = pcap_folder_location + "\\csv_files"
         name_of_csv = os.path.basename(
             path_of_selected_pcap_no_extension + '.csv')
-        csv = csv_folder + "\\" + name_of_csv
-        csv_exists = os.path.exists(csv)
+        _csv = csv_folder + "\\" + name_of_csv
+        csv_exists = os.path.exists(_csv)
 
         self.loadingStart()
 
@@ -328,7 +338,6 @@ class DataAnalysisWindow(QWidget):
 
         ########### CREATING FOLDER FOR CSVs ###########
 
-
         if not path.exists(csv_folder):
             os.mkdir(csv_folder)
 
@@ -341,22 +350,33 @@ class DataAnalysisWindow(QWidget):
 
         csv_path = csv_folder + "\\" + name_of_csv
         # print(csv_path)
-        df = pd.read_csv(csv_path, engine='python', error_bad_lines=False)
-        pcap_content = df.to_string(index=False)
+        self.all_data = pd.read_csv(
+            csv_path, engine='python', error_bad_lines=False)
+        pcap_content = self.all_data.to_string(index=False)
         rows = pcap_content.split("\n")
 
+        ############## HOPE FOR TABLE #####################
+        # self.all_data = csv.DictReader(open(csv_path))
+        NumRows = len(self.all_data.index)
+        self.table_view.setRowCount(NumRows)
+        self.table_view.setColumnCount(len(self.all_data.columns))
 
         ########## POPULATING GUI WITH EACH ROW OF DATAFRAME  ###########
         for row in range(len(rows)):
             # print(row)
             if row != 0:
-                print(rows[row])
-                row2 = rows[row].translate(str.maketrans("", "", string.whitespace))
+                row2 = rows[row].translate(
+                    str.maketrans("", "", string.whitespace))
                 # print(row2)
                 if(self.pcap_counter == 0):
-                   self.listWidget.addItem(rows[row])
-                   self.tab_father.setTabText(
-                       0, str(os.path.basename(path_of_selected_pcap)))
+                    self.tab_father.setTabText(
+                        0, str(os.path.basename(path_of_selected_pcap)))
+                    for i in range(NumRows):
+                        for j in range(len(self.all_data.columns)):
+                            self.table_view.setItem(
+                                i, j, QTableWidgetItem(str(self.all_data.iat[i, j])))
+                    self.table_view.resizeColumnsToContents()
+                    self.table_view.resizeRowsToContents()
                 elif (self.pcap_counter == 1):
                     self.listWidget1.addItem(rows[row])
                     self.tab_father.setTabText(
@@ -374,14 +394,11 @@ class DataAnalysisWindow(QWidget):
                     self.tab_father.setTabText(
                         4, str(os.path.basename(path_of_selected_pcap)))
                 else:
-                    set_status(self,'cannot have more than 5 tabs open','warning')
-
+                    set_status(
+                        self, 'cannot have more than 5 tabs open', 'warning')
 
         self.pcap_counter = self.pcap_counter + 1
         print(self.pcap_counter)
-
-
-
 
         # once a file is read, enable the filter bar
         self.action_bar.setEnabled(True)
@@ -466,7 +483,8 @@ class SelectedProjectWindow(QWidget):
         print("Deleting scenario from scenarios folder")
         if self.lw_scn_list.currentItem():
 
-            file_path = self.path + '/Scenario_units/' + self.lw_scn_list.currentItem().text()
+            file_path = self.path + '/Scenario_units/' + \
+                self.lw_scn_list.currentItem().text()
 
             try:
                 os.remove(file_path)
@@ -522,7 +540,8 @@ class SelectedProjectWindow(QWidget):
         file_names = [None] * self.lw_scn_to_run.count()
 
         for x in range(self.lw_scn_to_run.count()):
-            file_list[x] = self.path + '/Scenario_units/' + self.lw_scn_to_run.item(x).text()
+            file_list[x] = self.path + '/Scenario_units/' + \
+                self.lw_scn_to_run.item(x).text()
             file_names[x] = self.lw_scn_to_run.item(x).text()
 
         if (ub in str(output)):
@@ -574,7 +593,8 @@ class SelectedProjectWindow(QWidget):
         ub = "ubuntu"  # MAY NEED UPDATING THIS
         # added just as an example
         print("Starting NMAP scanning")
-        controller.core_command("/tmp/pycore.1/node1", "nmap", "10.0.0.1", ub, "output2")
+        controller.core_command("/tmp/pycore.1/node1",
+                                "nmap", "10.0.0.1", ub, "output2")
         print("Scanning completed")
 
     def goCreateScen(self):
@@ -626,12 +646,13 @@ class VM_CONTROLLER(QWidget):
             filenamemodular = locations[2].split(".")
             print(locations)
             print(filenamemodular)
-            ###NEED MODULAR PATH FOR USER SPECIFIC
+            # NEED MODULAR PATH FOR USER SPECIFIC
             cwd = os.getcwd()
 
             print("saving to: " + cwd + locations[0] + "/" + "pcaps")
 
-            controller.pass_command2("guestcontrol", self.ub, filenamemodular[0], cwd + "/" + locations[0] + "/pcaps")
+            controller.pass_command2(
+                "guestcontrol", self.ub, filenamemodular[0], cwd + "/" + locations[0] + "/pcaps")
             # controller.extract_file("guestcontrol",self.ub,, filenamemodular) #filenamemodular[0] +".pcap")
         # extract_file("guestcontrol","ubuntu",r"C:/Users/micha/OneDrive/Desktop/PRACTICUM/Main-Production-branch-michael/sprint4/Scenario_units","output1.pcap")
 
@@ -729,7 +750,8 @@ class ScenarioCreation(QWidget):
         self.close()
 
     def createScenarioFile(self):
-        complete_name = os.path.join(self.pathvar + '/Scenario_units/', self.txt_scen_name.toPlainText())
+        complete_name = os.path.join(
+            self.pathvar + '/Scenario_units/', self.txt_scen_name.toPlainText())
         self.pathfile = complete_name
         network_config.createSubnet()
         f = open(complete_name + ".xml", "w")
@@ -769,8 +791,10 @@ class NodeCreation(QWidget):
         self.btn_create_node.clicked.connect(self.appendNode)
         self.btn_add_network.clicked.connect(self.addNetwork)
         # self.btn_create_node.hide()
-        self.com_box_node_type.currentTextChanged.connect(self.on_combobox_nodetype_change)
-        self.com_box_scanner_bool.currentTextChanged.connect(self.on_combobox_nodetype_change2)
+        self.com_box_node_type.currentTextChanged.connect(
+            self.on_combobox_nodetype_change)
+        self.com_box_scanner_bool.currentTextChanged.connect(
+            self.on_combobox_nodetype_change2)
         self.com_box_end_cond.currentTextChanged.connect(self.end_combo_change)
         self.txt_user_login.hide()
         self.txt_password.hide()
@@ -849,7 +873,6 @@ class NodeCreation(QWidget):
             self.lbl_user_login.hide()
             self.lbl_password.hide()
 
-
         else:
             self.txt_user_login.show()
             self.txt_password.show()
@@ -886,7 +909,8 @@ class NodeCreation(QWidget):
         print(network_config.getNodeIP(str(self.IPcounter)))
         print(network_config.node_ip.get(str(self.IPcounter)))
 
-        xml_template.addLinkSwitch(self.IPcounter, int(switch_ids[int(network[1])]))
+        xml_template.addLinkSwitch(
+            self.IPcounter, int(switch_ids[int(network[1])]))
 
         # f.write(name + "," +  str(self.IPcounter) + "," +  "\n")
         xml_template.addDevice(self.IPcounter, name, core_type, services)
@@ -906,12 +930,14 @@ class NodeCreation(QWidget):
                                            2] + "_node_" + name + ".pcap")
             xml_template.addSrvcConfig(str(self.IPcounter), "tshark -a duration:" + str(
                 self.txt_end_cond.toPlainText()) + " -w /home/sds/Documents/pcap/" + str(now) + "_" + findscenname[
-                                           2] + "_node_" + name + ".pcap")
+                2] + "_node_" + name + ".pcap")
             for args in scanner_args:
-                xml_template.addSrvcConfig(str(self.IPcounter), scanner + " " + args)
+                xml_template.addSrvcConfig(
+                    str(self.IPcounter), scanner + " " + args)
         xml_template.toFile()
 
-        self.lw_list_of_nodes.addItem(name + ": " + network_config.node_ip.get(str(self.IPcounter)))
+        self.lw_list_of_nodes.addItem(
+            name + ": " + network_config.node_ip.get(str(self.IPcounter)))
 
         # if (self.com_box_node_type.currentText() != "NODE"):
         # f.write("User:"+ self.txt_user_login.toPlainText() +"\n")
@@ -935,7 +961,8 @@ class NodeCreation(QWidget):
         self.txt_args.clear()
         self.com_box_scanner_bool.setCurrentIndex(0)
         self.com_box_end_cond.setCurrentIndex(0)
-        self.txt_args.setPlainText("Write commands here, please seperate each command with a ',' (Comma)")
+        self.txt_args.setPlainText(
+            "Write commands here, please seperate each command with a ',' (Comma)")
         self.txt_max_parallel.setPlainText("1")
         self.txt_end_cond.setPlainText("1")
         self.txt_Num_iter.setPlainText("1")

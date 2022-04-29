@@ -571,7 +571,7 @@ QAbstractSpinBox {
     <enum>QTabWidget::Triangular</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <property name="documentMode">
     <bool>false</bool>
@@ -606,7 +606,43 @@ QAbstractSpinBox {
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_14">
          <item>
-          <widget class="QListWidget" name="listWidget"/>
+          <widget class="QTableWidget" name="table_view">
+           <column>
+            <property name="text">
+             <string>No.</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Time</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Source</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Destination</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Protocol</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Length</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Info</string>
+            </property>
+           </column>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -740,7 +776,7 @@ QAbstractSpinBox {
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_22">
        <item>
-        <widget class="QListWidget" name="listWidget4"/>
+        <widget class="QTableView" name="tableView4"/>
        </item>
       </layout>
      </widget>
