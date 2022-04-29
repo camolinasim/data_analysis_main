@@ -360,6 +360,7 @@ class DataAnalysisWindow(QWidget):
         NumRows = len(self.all_data.index)
         self.table_view.setRowCount(NumRows)
         self.table_view.setColumnCount(len(self.all_data.columns))
+        self.table_view.verticalHeader().setVisible(False)
 
         ########## POPULATING GUI WITH EACH ROW OF DATAFRAME  ###########
         for row in range(len(rows)):
