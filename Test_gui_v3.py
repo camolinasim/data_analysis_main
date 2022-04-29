@@ -48,7 +48,11 @@ from os import path
 import pandas as pd
 import re
 from re import search
+
+# new stuffffffffffff
 import csv
+from PyQt5 import QtGui
+
 
 from random import randint
 
@@ -109,32 +113,7 @@ class MainWindow(QMainWindow):
 def clear_analyzer_window(self):
     print("come back to clear analyzer window once tables work")
     top_label = "         #      TimeStamp    source     destin    protocol     frame.len                                 Info\n"
-
-    # if (self.pcap_counter == 0):
-    #     self.listWidget.clear()
-    #     self.listWidget.addItem(top_label)
-    # elif (self.pcap_counter == 1):
-    #     self.listWidget1.clear()
-    #     self.listWidget1.addItem(top_label)
-    # elif (self.pcap_counter == 2):
-    #     self.listWidget2.clear()
-    #     self.listWidget2.addItem(top_label)
-    # elif (self.pcap_counter == 3):
-    #     self.listWidget3.clear()
-    #     self.listWidget3.addItem(top_label)
-    # elif (self.pcap_counter == 4):
-    #     self.listWidget4.clear()
-    #     self.listWidget4.addItem(top_label)
-
-    # while layout.count():
-    #    child = layout.takeAt(0)
-    #    if child.widget():
-    #        child.widget().deleteLater()
-
     top_label = "         #      TimeStamp    source     destin    protocol     frame.len                  Info\n"
-    # top_label.setAlignment(QtCore.Qt.AlignTop)
-    # self.listWidget.addItem(top_label)
-    # self.table_view.layout().addWidget(top_label)
 
 
 def set_status(self, status, warning_or_success='none'):
@@ -157,6 +136,187 @@ def disable_tabs(self):
     self.tab_father.setTabEnabled(4, False)  # enable/disable the tab
     self.tab_father.setStyleSheet(
         "QTabBar::tab::disabled {width: 0; height: 0; margin: 0; padding: 0; border: none;} ")
+    self.tab_father.setTabsClosable(False)
+
+
+def table_setup(self):
+    # setup for tab1 table
+    self.table_view.setRowCount(len(self.all_data.index))
+    self.table_view.setColumnCount(len(self.all_data.columns))
+    self.table_view.verticalHeader().setVisible(False)
+    self.table_view.setSortingEnabled(True)
+
+    # setup for tab2 table
+    self.table_view_1.setRowCount(len(self.all_data.index))
+    self.table_view_1.setColumnCount(len(self.all_data.columns))
+    self.table_view_1.verticalHeader().setVisible(False)
+    self.table_view_1.setSortingEnabled(True)
+
+    # setup for tab3 table
+    self.table_view_2.setRowCount(len(self.all_data.index))
+    self.table_view_2.setColumnCount(len(self.all_data.columns))
+    self.table_view_2.verticalHeader().setVisible(False)
+    self.table_view_2.setSortingEnabled(True)
+
+    # setup for tab4 table
+    self.table_view_3.setRowCount(len(self.all_data.index))
+    self.table_view_3.setColumnCount(len(self.all_data.columns))
+    self.table_view_3.verticalHeader().setVisible(False)
+    self.table_view_3.setSortingEnabled(True)
+
+    # setup for tab5 table
+    self.table_view_4.setRowCount(len(self.all_data.index))
+    self.table_view_4.setColumnCount(len(self.all_data.columns))
+    self.table_view_4.verticalHeader().setVisible(False)
+    self.table_view_4.setSortingEnabled(True)
+
+
+def populate_table_0(self, num_rows):
+    for i in range(num_rows):
+        for j in range(len(self.all_data.columns)):
+            self.table_view.setItem(
+                i, j, QTableWidgetItem(str(self.all_data.iat[i, j])))
+    self.table_view.resizeColumnsToContents()
+    self.table_view.resizeRowsToContents()
+
+
+def populate_table_1(self, num_rows):
+    for i in range(num_rows):
+        for j in range(len(self.all_data.columns)):
+            self.table_view_1.setItem(
+                i, j, QTableWidgetItem(str(self.all_data.iat[i, j])))
+    self.table_view_1.resizeColumnsToContents()
+    self.table_view_1.resizeRowsToContents()
+
+
+def populate_table_2(self, num_rows):
+    for i in range(num_rows):
+        for j in range(len(self.all_data.columns)):
+            self.table_view_2.setItem(
+                i, j, QTableWidgetItem(str(self.all_data.iat[i, j])))
+    self.table_view_2.resizeColumnsToContents()
+    self.table_view_2.resizeRowsToContents()
+
+
+def populate_table_3(self, num_rows):
+    for i in range(num_rows):
+        for j in range(len(self.all_data.columns)):
+            self.table_view_3.setItem(
+                i, j, QTableWidgetItem(str(self.all_data.iat[i, j])))
+    self.table_view_3.resizeColumnsToContents()
+    self.table_view_3.resizeRowsToContents()
+
+
+def populate_table_4(self, num_rows):
+    for i in range(num_rows):
+        for j in range(len(self.all_data.columns)):
+            self.table_view_4.setItem(
+                i, j, QTableWidgetItem(str(self.all_data.iat[i, j])))
+    self.table_view_4.resizeColumnsToContents()
+    self.table_view_4.resizeRowsToContents()
+
+
+def set_tab_title(self, tab_number):
+    if(tab_number == 0):
+        self.tab_father.setTabText(
+            0, str(os.path.basename(path_of_selected_pcap)))
+    elif(tab_number == 1):
+        self.tab_father.setTabText(
+            1, str(os.path.basename(path_of_selected_pcap)))
+    elif(tab_number == 2):
+        self.tab_father.setTabText(
+            2, str(os.path.basename(path_of_selected_pcap)))
+    elif(tab_number == 3):
+        self.tab_father.setTabText(
+            3, str(os.path.basename(path_of_selected_pcap)))
+    elif(tab_number == 4):
+        self.tab_father.setTabText(
+            4, str(os.path.basename(path_of_selected_pcap)))
+
+#
+
+
+def filter_and_show_contents_on_curent_window(self):
+    index_of_tab_to_show_the_filtered_data_on = self.tab_father.currentIndex()
+    print(index_of_tab_to_show_the_filtered_data_on)
+    output_csv_from_filtered_data = path_of_selected_pcap_no_extension + '_FILTERED.csv'
+    set_status(self, 'calling tshark. . . (this may take a while)')
+
+    filter_argument = self.action_bar.text()
+    show_me_only_what_matters = ' -T fields -E header=y -E separator=, -E quote=d -E occurrence=f -e frame.number -e _ws.col.Time -e ip.src -e ip.dst -e ip.proto -e frame.len -e _ws.col.Info '
+    tshark_command = 'tshark -r ' + path_of_selected_pcap + show_me_only_what_matters + \
+        ' -Y ' + '\"' + filter_argument + '\"' + \
+        f' > {output_csv_from_filtered_data}'
+    stream = os.popen(tshark_command)
+    output = stream.read()
+    print("Tshark says: " + output)
+    rows = output.split("\n")
+    # print("###########TSHARK SAYS: " + output)
+    if (output == ''):
+        # what happens when the csv file already exists? Does it overwrite it?
+        set_status(
+            self, f'Filtering Successful - filtered data saved on: \n {output_csv_from_filtered_data}', 'success')
+    else:
+        set_status(
+            self, f'Wrong Filter', 'warning')
+
+    ##COME BACK HERE PROBLEM##
+    ########## CREATING DATAFRAME FROM CSV ###########
+    csv_path = path_of_selected_pcap_no_extension + '_FILTERED.csv'
+    name_of_filtered_csv = os.path.basename(
+        path_of_selected_pcap_no_extension + '_FILTERED.csv')
+    filtered_csv_path = csv_folder + "\\" + name_of_filtered_csv
+    filtered_csv_exists = os.path.exists(filtered_csv_path)
+
+    print(f'#####CSV_PATH = {csv_path}')
+
+    if (not filtered_csv_exists):
+        move_this_csv = csv_path
+        over_here = csv_folder
+        shutil.move(move_this_csv, over_here)
+
+    csv_path = csv_folder + "\\" + name_of_csv
+    # print(csv_path)
+    self.all_data = pd.read_csv(
+        csv_path, engine='python', error_bad_lines=False)
+
+    ############## HOPE FOR TABLE #####################
+    # self.all_data = csv.DictReader(open(csv_path))
+    table_setup(self)
+    num_rows = len(self.all_data.index)
+
+    ########## POPULATING GUI WITH EACH ROW OF DATAFRAME  ###########
+    for row in range(len(rows)):
+        # print(row)
+        if row != 0:
+            row2 = rows[row].translate(
+                str.maketrans("", "", string.whitespace))
+            # print(row2)
+            tab_index_to_edit = self.pcap_counter
+            if(index_of_tab_to_show_the_filtered_data_on == 0):
+                set_tab_title(self, tab_index_to_edit)
+                populate_table_0(self, num_rows)
+
+            elif (index_of_tab_to_show_the_filtered_data_on == 1):
+                set_tab_title(self, tab_index_to_edit)
+                populate_table_1(self, num_rows)
+
+            elif (index_of_tab_to_show_the_filtered_data_on == 2):
+                set_tab_title(self, tab_index_to_edit)
+                populate_table_2(self, num_rows)
+
+            elif (index_of_tab_to_show_the_filtered_data_on == 3):
+                set_tab_title(self, tab_index_to_edit)
+                populate_table_3(self, num_rows)
+
+            elif (index_of_tab_to_show_the_filtered_data_on == 4):
+                set_tab_title(self, tab_index_to_edit)
+                populate_table_4(self, num_rows)
+            else:
+                set_status(
+                    self, 'If you see this message, the program tried to show the filtered content on a window that doesnt exist', 'warning')
+
+    # set_status(self, '')
 
 
 class DataAnalysisWindow(QWidget):
@@ -227,37 +387,7 @@ class DataAnalysisWindow(QWidget):
             print(output)
         ###FILTER LOGIC###
         else:
-            filter_argument = self.action_bar.text()
-            show_me_only_what_matters = ' -T fields -E header=y -E separator=, -E quote=d -E occurrence=f -e frame.number -e _ws.col.Time -e ip.src -e ip.dst -e ip.proto -e frame.len -e _ws.col.Info'
-            tshark_command = 'tshark -r ' + path_of_selected_pcap + \
-                             ' -Y ' + '\"' + filter_argument + '\"'
-            stream = os.popen(tshark_command)
-            output = stream.read()
-
-            print("Tshark says: " + output)
-            output = output.replace("â†’", "->")
-            rows = output.split("\n")
-
-            # clear the window before showing thsark's answer.
-            clear_analyzer_window("self.table_view.layout()", self)
-
-            ########## POPULATING GUI WITH TSHARK'S ANSWER TO FILTER ###########
-            for row in range(len(rows)):
-                if row != 0:
-                    print(rows[row])
-                    row2 = rows[row].translate(
-                        str.maketrans("", "", string.whitespace))
-                    # print(row2)
-                    self.listWidget.addItem(rows[row])
-                # self.listWidget.addItem(row)
-                # packet_row = QLabel(row)
-                # try:
-                #    packet_name = re.search(r'\d+', packet_row.text()).group()
-                #    packet_row.setObjectName(packet_name)
-                #    packet_row.setAlignment(QtCore.Qt.AlignTop)
-                #    self.table_view.layout().addWidget(packet_row)
-                # except AttributeError:
-                #    packet_name = "0"
+            filter_and_show_contents_on_curent_window(self)
 
     def merge_pcaps(self):
         pcap1 = path_of_selected_pcap
@@ -300,6 +430,11 @@ class DataAnalysisWindow(QWidget):
         global pcap_name
         global pcap_folder_location
         global csv_folder
+        global csv_exists
+        global path_of_selected_pcap_no_extension
+        global name_of_csv
+        global rows
+        global num_rows
 
         self.tab_father.setTabEnabled(self.pcap_counter, True)
 
@@ -335,6 +470,7 @@ class DataAnalysisWindow(QWidget):
                                path_of_selected_pcap_no_extension + '.csv'
             stream = os.popen(thsark_read_pcap)
             output = stream.read()
+        set_status(self, '')
 
         ########### CREATING FOLDER FOR CSVs ###########
 
@@ -352,15 +488,13 @@ class DataAnalysisWindow(QWidget):
         # print(csv_path)
         self.all_data = pd.read_csv(
             csv_path, engine='python', error_bad_lines=False)
-        pcap_content = self.all_data.to_string(index=False)
-        rows = pcap_content.split("\n")
+        pcap_content = self.all_data.to_string(index=False)  # delete this?
+        rows = pcap_content.split("\n")  # delete this?
 
         ############## HOPE FOR TABLE #####################
         # self.all_data = csv.DictReader(open(csv_path))
-        NumRows = len(self.all_data.index)
-        self.table_view.setRowCount(NumRows)
-        self.table_view.setColumnCount(len(self.all_data.columns))
-        self.table_view.verticalHeader().setVisible(False)
+        table_setup(self)
+        num_rows = len(self.all_data.index)
 
         ########## POPULATING GUI WITH EACH ROW OF DATAFRAME  ###########
         for row in range(len(rows)):
@@ -369,31 +503,26 @@ class DataAnalysisWindow(QWidget):
                 row2 = rows[row].translate(
                     str.maketrans("", "", string.whitespace))
                 # print(row2)
+                tab_index_to_edit = self.pcap_counter
                 if(self.pcap_counter == 0):
-                    self.tab_father.setTabText(
-                        0, str(os.path.basename(path_of_selected_pcap)))
-                    for i in range(NumRows):
-                        for j in range(len(self.all_data.columns)):
-                            self.table_view.setItem(
-                                i, j, QTableWidgetItem(str(self.all_data.iat[i, j])))
-                    self.table_view.resizeColumnsToContents()
-                    self.table_view.resizeRowsToContents()
+                    set_tab_title(self, tab_index_to_edit)
+                    populate_table_0(self, num_rows)
+
                 elif (self.pcap_counter == 1):
-                    self.listWidget1.addItem(rows[row])
-                    self.tab_father.setTabText(
-                        1, str(os.path.basename(path_of_selected_pcap)))
+                    set_tab_title(self, tab_index_to_edit)
+                    populate_table_1(self, num_rows)
+
                 elif (self.pcap_counter == 2):
-                    self.listWidget2.addItem(rows[row])
-                    self.tab_father.setTabText(
-                        2, str(os.path.basename(path_of_selected_pcap)))
+                    set_tab_title(self, tab_index_to_edit)
+                    populate_table_2(self, num_rows)
+
                 elif (self.pcap_counter == 3):
-                    self.listWidget3.addItem(rows[row])
-                    self.tab_father.setTabText(
-                        3, str(os.path.basename(path_of_selected_pcap)))
+                    set_tab_title(self, tab_index_to_edit)
+                    populate_table_3(self, num_rows)
+
                 elif (self.pcap_counter == 4):
-                    self.listWidget4.addItem(rows[row])
-                    self.tab_father.setTabText(
-                        4, str(os.path.basename(path_of_selected_pcap)))
+                    set_tab_title(self, tab_index_to_edit)
+                    populate_table_4(self, num_rows)
                 else:
                     set_status(
                         self, 'cannot have more than 5 tabs open', 'warning')
